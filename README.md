@@ -74,3 +74,19 @@ ssh moltbot@$(terraform output -raw instance_ip)
 | `root_password` | Root password (sensitive) |
 | `firewall_id` | Firewall ID |
 
+
+## Moltbot configuration
+Moltbot (Clawdbot) is installed and ready to use out-of-the-box on the VM. 
+
+SSH to the VM as `moltbot` user
+
+```bash
+ssh moltbot@$VMIP
+```
+and run 
+
+```bash
+clawdbot onboard --install-daemon
+```
+
+to begin the onboarding process - follow [upstream docs](https://docs.molt.bot/start/getting-started)
