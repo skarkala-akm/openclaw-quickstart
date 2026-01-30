@@ -1,4 +1,4 @@
-# openclaw Linode VM Terraform Setup
+# OpenClaw Linode VM Terraform Setup
 
 This Terraform configuration creates a Linode VM with security hardening and automated setup for openclaw/clawdbot.
 
