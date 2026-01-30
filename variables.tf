@@ -7,7 +7,7 @@ variable "linode_token" {
 variable "instance_label" {
   description = "The label for the Linode instance"
   type        = string
-  default     = "moltbot-vm"
+  default     = "openclaw-vm"
 }
 
 variable "region" {
@@ -55,5 +55,5 @@ variable "allowed_ssh_cidrs" {
 variable "tags" {
   description = "Tags to apply to Linode resources"
   type        = list(string)
-  default     = ["moltbot", "production"]
+  default     = ["openclaw", "production"]
 }

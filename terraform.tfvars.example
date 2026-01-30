@@ -6,7 +6,7 @@ public_key_path  = "~/.ssh/id_ed25519.pub"
 allowed_ssh_cidrs = ["YOUR_PUBLIC_IP/32"]
 
 # Optional variables
-# instance_label = "moltbot-vm"
+# instance_label = "openclaw-vm"
 # region         = "us-ord"
 # instance_type  = "g6-standard-2"
 # root_password  = ""  # Leave empty to auto-generate

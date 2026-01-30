@@ -1,9 +1,9 @@
 #cloud-config
 
-hostname: moltbot-vm
+hostname: openclaw-vm
 
 users:
-  - name: moltbot
+  - name: openclaw
     sudo: ALL=(ALL) NOPASSWD:ALL
     groups: users, admin
     shell: /bin/bash
@@ -22,15 +22,15 @@ packages:
 
 runcmd:
   - NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  - echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/moltbot/.bashrc
+  - echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/openclaw/.bashrc
   - echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /root/.bashrc
   - sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
   - sed -i 's/^#*ChallengeResponseAuthentication.*/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
   - sed -i 's/^#*PermitRootLogin.*/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
   - sed -i 's/^#*PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
   - systemctl restart sshd
-  - chown -R moltbot:moltbot /home/moltbot
-  - su - moltbot -c 'brew --version'
-  - su - moltbot -c 'curl -fsSL https://molt.bot/install.sh | bash -s -- --no-prompt --install-method npm'
+  - chown -R openclaw:openclaw /home/openclaw
+  - su - openclaw -c 'brew --version'
+  - su - openclaw -c 'curl -fsSL https://openclaw.ai/install.sh | bash -s -- --no-prompt --install-method npm'
 
-final_message: "Moltbot VM setup complete!"
+final_message: "openclaw VM setup complete!"

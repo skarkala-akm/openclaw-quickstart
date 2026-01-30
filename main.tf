@@ -37,7 +37,7 @@ locals {
   })
 }
 
-resource "linode_instance" "moltbot" {
+resource "linode_instance" "openclaw" {
   label  = var.instance_label
   region = var.region
   type   = var.instance_type
@@ -49,7 +49,7 @@ resource "linode_instance" "moltbot" {
 }
 
 resource "linode_instance_disk" "boot" {
-  linode_id       = linode_instance.moltbot.id
+  linode_id       = linode_instance.openclaw.id
   label           = "boot"
   size            = var.disk_size
   image           = "linode/ubuntu24.04"
@@ -58,14 +58,14 @@ resource "linode_instance_disk" "boot" {
 }
 
 resource "linode_instance_disk" "swap" {
-  linode_id  = linode_instance.moltbot.id
+  linode_id  = linode_instance.openclaw.id
   label      = "swap"
   size       = 512
   filesystem = "swap"
 }
 
 resource "linode_instance_config" "boot_config" {
-  linode_id = linode_instance.moltbot.id
+  linode_id = linode_instance.openclaw.id
   label     = "boot_config"
   kernel    = "linode/grub2"
   booted    = true
@@ -85,7 +85,7 @@ resource "linode_instance_config" "boot_config" {
 
 resource "null_resource" "reboot" {
   triggers = {
-    instance_id = linode_instance.moltbot.id
+    instance_id = linode_instance.openclaw.id
   }
 
   depends_on = [linode_instance_config.boot_config]
@@ -99,14 +99,14 @@ resource "null_resource" "reboot" {
     connection {
       type        = "ssh"
       user        = "root"
-      host        = tolist(linode_instance.moltbot.ipv4)[0]
+      host        = tolist(linode_instance.openclaw.ipv4)[0]
       private_key = var.private_key_path != "" ? file(var.private_key_path) : null
       agent       = var.private_key_path == "" ? true : false
     }
   }
 }
 
-resource "linode_firewall" "moltbot_firewall" {
+resource "linode_firewall" "openclaw_firewall" {
   label = "${var.instance_label}-firewall"
   tags  = var.tags
 
@@ -139,5 +139,5 @@ resource "linode_firewall" "moltbot_firewall" {
   outbound_policy = "ACCEPT"
   inbound_policy  = "DROP"
 
-  linodes = [linode_instance.moltbot.id]
+  linodes = [linode_instance.openclaw.id]
 }
