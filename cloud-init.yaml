@@ -28,9 +28,10 @@ runcmd:
   - sed -i 's/^#*ChallengeResponseAuthentication.*/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
   - sed -i 's/^#*PermitRootLogin.*/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
   - sed -i 's/^#*PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
-  - systemctl restart sshd
+  - systemctl restart ssh
   - chown -R openclaw:openclaw /home/openclaw
-  - su - openclaw -c 'brew --version'
+  - su - openclaw -c 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew --version'
   - su - openclaw -c 'curl -fsSL https://openclaw.ai/install.sh | bash -s -- --no-prompt --install-method npm'
+  - echo 'export PATH="$HOME/.npm-global/bin:$PATH"' >> /home/openclaw/.bashrc
 
 final_message: "openclaw VM setup complete!"
